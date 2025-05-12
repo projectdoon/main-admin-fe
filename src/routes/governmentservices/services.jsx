@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Dropdown from '../../components/Dropdown';
-import SchemeHolder from '../../components/schemeHolder';
 import axios from 'axios'; // Make sure to import axios
+import Button from '../../components/Button';
+import Right from '../../assets/Expand_left_light.png';
+import Left from '../../assets/Expand_left_light-2.png';
 
 export default function Services() {
   const [date, setDate] = useState(new Date());
@@ -62,68 +63,91 @@ export default function Services() {
     second: 'numeric'
   };
   const formattedDate = new Intl.DateTimeFormat('en-IN', dateTimeOptions).format(date);
-  const [dayOfWeek, monthDay, time] = formattedDate.split(', ');
+  const [datePart, time] = formattedDate.split(" at ");
+  const [dayOfWeek, ...rest] = datePart.split(" ");
+  const monthDay = rest.join(" ").replace(",", "");
+
+  const displayedServices = [
+    "Service1",
+    "Service2",
+    "Service3",
+    "Service4",
+    "Service5",
+    "Service6"
+  ]
 
   return (
     <>
       <div>
-        {/* fixed mr */}
-        <div className='flex justify-center items-center mr-[35rem] mt-2'>
-          <Dropdown />
-        </div>
-
         <div className='flex'>
-          {/* added mr */}
-          <div className='flex flex-col mt-7 mr-[-1.5rem]'>
-            {/* added my and mr(in first ul) */}
-            <ul className='flex my-[-0.7rem] mr-[-0.7rem]'>
-              <SchemeHolder title="Service 1" url='live'/>
-              <SchemeHolder  title="Service 2" url='live'/>
-              <SchemeHolder  title="Service 3" url='live'/>
-            </ul>
-            <ul className='flex mr-[-0.7rem]'>
-            <SchemeHolder title="Service 4" url='live'/>
-              <SchemeHolder  title="Service 5" url='live'/>
-              <SchemeHolder  title="Service 6" url='live'/>
-            </ul>
-            <ul className='flex mr-[-0.7rem]'>
-              <SchemeHolder title="Service 7" url='live'/>
-              <SchemeHolder  title="Service 8" url='live'/>
-              <SchemeHolder  title="Service 9" url='live'/>
-            </ul>
+          <div className='flex flex-col justify-start items-center min-w-[40vw] mb-2 w-[60%]'>
+            <div className='py-5'>
+              <Button>
+                Add New Service
+              </Button>
+            </div>
+            <div className='pt-2'>
+              {Array.isArray(displayedServices) && displayedServices.length > 0 ? (
+                <>
+                  {displayedServices.slice().reverse().slice(0, 9).reduce((acc, service, index) => {
+                    if (index % 3 === 0) {
+                      acc.push([]);
+                    }
+                    acc[acc.length - 1].push(service);
+                    return acc;
+                  }, []).map((serviceGroup, groupIndex) => (
+                    <ul key={groupIndex} className='flex gap-7 mx-[-2.5rem]'>
+                      {serviceGroup.map(service => (
+                        <div key={service} className='flex justify-center items-center bg-white rounded-2xl shadow-md h-[16.5vh] mb-7 mt- min-w-[13vw] font-semibold'>{service}</div>
+                      ))}
+                    </ul>
+                  ))}
+                </>
+              ) : (
+                <ul className='flex'>
+                  <p className='text-2xl font-semibold m-6'>ADD MORE SERVICES</p>
+                </ul>
+              )}
+            </div>
+            <div className='flex gap-2 pt-3'>
+              <button className='h-6 w-6 rounded-full bg-white border-2 border-blue-300'><img src={Left} alt="" /></button>
+              <button className='h-6 w-6 rounded-full bg-white border-2 border-blue-300'><img src={Right} alt="" /></button>
+            </div>
           </div>
 
-          <div className='w-[30vw]'>
-            <div className='border-l border-gray-300 m-8 mt-[-1.6rem]'>
+          <div className="w-[40%] pt-1">
+            <div className="border-l border-gray-300">
               <ul className="flex flex-col justify-start">
-                {/* fixed the margins */}
-                <li className='bg-white m-4 h-[38vh] w-[24vw] rounded-xl flex flex-col items-center'>
-                  <p className='font-semibold text-xl mt-1.5 text-red-500'>Alerts</p>
-                  <div className='m-2.5 border-t-[1.5px] border-slate-200'>
-                    {error && <p className='text-red-500'>{error}</p>}
-                    <ul className='flex flex-col overflow-y-auto max-h-[28vh] overflow-x-hidden w-[22vw]' style={{ 
+                <li className="bg-white m-4 h-[42vh] xl:w-[28vw] w-[23vw] rounded-2xl flex flex-col items-start px-3">
+                  <p className="font-semibold text-xl mt-2 mb-[-0.5rem] text-red-500">
+                    Alerts
+                  </p>
+                  <div className="m-4 ml-0 border-t-[1.5px] w-full border-slate-200">
+                    {error && <p className="text-red-500">{error}</p>}
+                    <ul className="flex flex-col mt-1 overflow-y-auto max-h-[32vh] overflow-x-hidden max-w-[27vw]" style={{ 
                       scrollbarWidth: 'none'  
                     }}>
                       {alerts.length > 0 ? (
-                        alerts.map((alert) => (
-                          <li key={alert.id} className='m-1'>
-                            {alert.Alert}
+                        alerts.slice().reverse().map((alert) => (
+                          <li key={alert.id} className="m-1 w-full">
+                            {alert.alert}
                           </li>
                         ))
                       ) : (
-                        <li className='m-2 p-2 rounded-lg bg-gray-200'>No alerts available</li>
+                        <li className="m-2 p-2 rounded-lg bg-gray-200">
+                          No alerts available
+                        </li>
                       )}
                     </ul>
                   </div>
                 </li>
-                <li className='bg-white m-4 h-[20vh] w-[24vw] rounded-xl'>
-                  <div className='flex flex-row justify-between'>
-                    <div className='text-6xl m-4'>{temperature}°</div>
-                    {/* fixed items-center and margin */}
-                    <ul className='flex flex-col items-start m-1'>
-                      <li className='m-2 font-medium'>{dayOfWeek}</li>
-                      <li className='m-2 font-medium'>{monthDay}</li>
-                      <li className='m-2 font-medium'>{time}</li>
+                <li className="bg-white m-4 h-[20vh] xl:w-[28vw] w-[23vw] rounded-2xl">
+                  <div className="flex justify-between items-center h-full xl:scale-100 ml-[-1.5rem] xl:ml-0">
+                    <div className="text-4xl m-3 text-center w-full">{temperature}°C</div>
+                    <ul className="flex flex-col gap-2 justify-center items-start m-4 w-full">
+                      <li className="text-sm font-semibold uppercase">{dayOfWeek}</li>
+                      <li className="text-sm font-semibold">{monthDay}</li>
+                      <li className="text-sm font-semibold">{time}</li>
                     </ul>
                   </div>
                 </li>

@@ -26,6 +26,9 @@ import PublicToilet from "./routes/publicToilet/publicToilet";
 import StagnentWater from "./routes/StagnentWater/StagnentWater";
 import PublicTransport from "./routes/publicTransport/publicTransport";
 import RoadRepairs from "./routes/roadRepair/roadRepairs";
+import Complaints from "./routes/Complaints/complaints.component";
+import StreetLights from "./routes/StreetLights/StreetLights";
+import Banners from "./routes/Banners/Banners";
 
 const GOOGLE_MAPS_API_KEY = "AIzaSyAU4SEzLK-hc2pBfE_xggoyAigxopPQ7mw";
 
@@ -49,12 +52,15 @@ function App() {
               </AuthGuard>
             }
           >
-            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />    
+            <Route path="dashboard/banners" element={<Banners />} />    
+
             <Route path="reports" element={<Reports />} />
             <Route path="alerts" element={<Alerts />} />
+            <Route path="complaints" element={<Complaints />} />
             
             <Route
-              path="dashboard/garbage"
+              path="garbage"
               element={
                 <RoleGuard allowedRoles={["garbage", "admin"]}>
                   <Livetracking />
@@ -63,7 +69,7 @@ function App() {
             />
             
             <Route
-              path="dashboard/garbage/household"
+              path="garbage/household"
               element={
                 <RoleGuard allowedRoles={["garbage", "admin"]}>
                   <Livetracking />
@@ -72,7 +78,7 @@ function App() {
             />
             
             <Route
-              path="dashboard/garbage/allReports"
+              path="garbage/allReports"
               element={
                 <RoleGuard allowedRoles={["garbage", "admin"]}>
                   <LiveReports />
@@ -81,7 +87,7 @@ function App() {
             />
             
             <Route
-              path="dashboard/water"
+              path="complaints/water"
               element={
                 <RoleGuard allowedRoles={["admin", "waterUser"]}>
                   <WaterLeakage />
@@ -91,7 +97,7 @@ function App() {
             
             
             <Route
-              path="dashboard/deadanimal"
+              path="complaints/deadanimal"
               element={
                 <RoleGuard allowedRoles={["admin", "deadUser"]}>
                   <Animal />
@@ -99,7 +105,7 @@ function App() {
               }
             />
             <Route
-              path="dashboard/manholes"
+              path="complaints/manholes"
               element={
                 <RoleGuard allowedRoles={["admin", "manhole"]}>
                   <Manholes />
@@ -107,7 +113,7 @@ function App() {
               }
             />
              <Route
-              path="dashboard/toilets"
+              path="complaints/toilets"
               element={
                 <RoleGuard allowedRoles={["admin", "toilet"]}>
                   <PublicToilet/>
@@ -115,7 +121,7 @@ function App() {
               }
             />
             <Route
-              path="dashboard/stagnant"
+              path="complaints/stagnant"
               element={
                 <RoleGuard allowedRoles={["admin", "stagnant"]}>
                   <StagnentWater/>
@@ -123,7 +129,7 @@ function App() {
               }
             />
             <Route
-              path="dashboard/transport"
+              path="complaints/transport"
               element={
                 <RoleGuard allowedRoles={["admin", "transport"]}>
                   <PublicTransport/>
@@ -131,15 +137,15 @@ function App() {
               }
             />
             <Route
-              path="dashboard/transport"
+              path="complaints/lights"
               element={
                 <RoleGuard allowedRoles={["admin", "transport"]}>
-                  <PublicTransport/>
+                  <StreetLights/>
                 </RoleGuard>
               }
             />
              <Route
-              path="dashboard/road"
+              path="complaints/road"
               element={
                 <RoleGuard allowedRoles={["admin", "road"]}>
                   <RoadRepairs/>
@@ -147,11 +153,11 @@ function App() {
               }
             />
             
-            <Route path="dashboard/govscheme" element={<Schemes />} />
-            <Route path="dashboard/govservice" element={<Services />} />
+            <Route path="gov/scheme" element={<Schemes />} />
+            <Route path="gov/service" element={<Services />} />
             
             <Route
-              path="dashboard/govscheme/addscheme"
+              path="dashboard/gov/scheme/addscheme"
               element={<Addschemes />}
             />
             

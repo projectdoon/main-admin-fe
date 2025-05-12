@@ -12,7 +12,7 @@ function NavComponent({ url, styling, activeStyling, children, ...props }) {
         }}
         {...props}
         style={({ isActive }) => ({
-          fontWeight: isActive ? "bold" : "normal", // will normally bold the text (inline style)
+          fontWeight: isActive ? "bold" : "normal", 
         })}
       >
         {children}

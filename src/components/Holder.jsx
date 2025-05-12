@@ -1,19 +1,16 @@
 import { Link } from "react-router-dom";
-function Holder({ title, img, url }) {
+function Holder({ title, number, url, colour }) {
   return (
-    <div className="flex justify-center w-[14vw] h-[20vh]">
+    <div className="min-w-56 h-[50%]">
       <Link
         to={url}
-        className="p-8 px-3 w-[140px] h-[120px] bg-white mx-10 my-3 rounded-2xl shadow-md flex flex-col items-center justify-center"
+        className={`pt-3 pb-6 px-3 w-[100%] h-[100%] bg-white mx-10 my-3 rounded-2xl border-2 shadow-md flex flex-col items-start justify-start`}
+        style={{ borderColor: colour }}
       >
-        <img
-          src={img}
-          alt=""
-          className="w-[60px] h-[60px] scale-[80%] object-contain rounded-t-md mb-1"
-        />
-        <p className="text-center scale-90 text-sm font-semibold text-gray-700 whitespace-nowrap">
+        <p className="text-left text-xs font-semibold text-gray-700 whitespace-nowrap pb-1 border-b-2 border-gray-200 w-full">
           {title}
         </p>
+        <div className="text-3xl text-center w-full pt-4">{number}</div>
       </Link>
     </div>
   );

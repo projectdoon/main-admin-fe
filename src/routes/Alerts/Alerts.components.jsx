@@ -108,11 +108,10 @@ function Alerts() {
                     key={index}
                     className="text-md font-md flex justify-between items-center w-full"
                   >
-                    <div className="flex">
-                      <img src={RedDot} alt="" className="mr-10 scale-90" />
-                      <span className="font-normal">{alert.Alert}</span> -{" "}
+                    <div className="flex items-center w-full">
+                      <img src={RedDot} alt="" className="mr-10 scale-75" />
+                      <span className="font-normal">{alert.alert}</span> - {" "}
                       <span className="font-bold">{alert.category}</span>{" "}
-                      {/* Display category */}
                     </div>
                     {/* given margin right */}
                     <img src={RightArrow} className="h-7 w-7 mr-3" alt="" />

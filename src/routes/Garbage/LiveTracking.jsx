@@ -7,7 +7,7 @@ export default function Livetracking() {
     <>
       <LiveHeader />
 
-      <div className="flex justify-between pb-12">
+      <div className="flex justify-between pb-5">
         <div className="ml-10 scale-95 border-r-2" style={{ width: '65%' }}> {/* Adjust the width if needed */}
 
           <MapContainer category='garbage'/>

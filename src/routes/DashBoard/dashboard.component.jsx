@@ -1,39 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Dropdown from "../../components/Dropdown";
 import Holder from "../../components/Holder";
-import Img1 from "../../assets/transportation-truck_75588 1 .png";
-import Img2 from "../../assets/dog 4.png";
-import Img3 from "../../assets/Component 3.png";
-import Img4 from "../../assets/blood_206397 1.png";
-import Img5 from "../../assets/Shop@3x.png";
-import Img6 from "../../assets/sea-waves_75765 1.png";
-import Img7 from "../../assets/Road_alt_fill.png";
-import Img8 from "../../assets/bus_162786 1.png";
-import Img9 from "../../assets/street-lamp_2531855 1.png";
-import LeftArrow from "../../assets/left_arrow.png";
-import RightArrow from "../../assets/right_arrow.png";
 import axios from "axios"; // Make sure to import axios
+import MapContainer from "../../components/maps";
 
 export default function Dashboard() {
-  const [date, setDate] = useState(new Date());
-  const [temperature, setTemperature] = useState("N/A"); // Default to 'N/A'
   const [alerts, setAlerts] = useState([]); // State for alerts
   const [error, setError] = useState(""); // State for error messages
 
   useEffect(() => {
-    const updateDate = () => {
-      setDate(new Date());
-    };
-
-    const fetchTemperature = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/temperature");
-        const data = await response.json();
-        setTemperature(data.temperature);
-      } catch (error) {
-        console.error("Error fetching temperature:", error);
-      }
-    };
 
     const fetchAlerts = async () => {
       try {
@@ -45,76 +19,35 @@ export default function Dashboard() {
       }
     };
 
-    updateDate(); // Update date on component mount
-    fetchTemperature(); // Fetch initial temperature
     fetchAlerts(); // Fetch initial alerts
 
-    // Update date every minute
-    const dateInterval = setInterval(updateDate, 60000);
-
-    // Update temperature every hour
-    const tempInterval = setInterval(fetchTemperature, 3600000);
-
-    return () => {
-      clearInterval(dateInterval);
-      clearInterval(tempInterval);
-    };
   }, []);
-
-  // Format date and time for the Indian time zone
-  const dateTimeOptions = {
-    timeZone: "Asia/Kolkata",
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-  };
-
-  const formattedDate = new Intl.DateTimeFormat(
-    "en-IN",
-    dateTimeOptions
-  ).format(date);
-  const [dayOfWeek, monthDay, time] = formattedDate.split(", ");
 
   return (
     <>
-      <div>
-        <div className="flex justify-center items-center py-4 xl:py-0 mr-[26rem] xl:mr-[33rem] mt-4 z-50">
-          <Dropdown />
-        </div>
-
-        <div className="flex">
+      <div className="w-[100%]"> 
+        <div className="flex justify-between items-center">
           {/* added gap for responsive design */}
-          <div className="flex flex-col items-center gap-3 xl:gap-0">
+          <div className="flex flex-col items-end gap-3 xl:gap-0 w-[60%] -ml-20">
             {/* Fixed the mb */}
-            <ul className="flex mb-[-0.3rem] gap-3 xl:gap-0">
-              <Holder img={Img1} title="Garbage Vehicle" url="garbage" />
-              <Holder img={Img2} title="Dead Animal" url="deadanimal" />
-              <Holder img={Img3} title="Open Manholes" url="manholes" />
+            <ul className="flex mb-[-0.3rem] gap-3 xl:gap-10">
+              <Holder colour="#ED1C2580" number={9} title="Today's Complaints" url="complains" />
+              <Holder colour="#3A81F1" number={9} title="Solved Complaints" url="active-services" />
             </ul>
-            <ul className="flex mb-[-0.3rem] gap-3 xl:gap-0">
-              <Holder img={Img4} title="Water Leakage" url="water" />
-              <Holder img={Img5} title="Public Toilets" url="toilets" />
-              <Holder img={Img6} title="Stagnant Water" url="stagnant" />
+            <ul className="flex mb-[-0.3rem] gap-3 xl:gap-10">
+              <Holder colour="#77DD77E5" number={9} title="Active Schemes" url="active-schemes" />
+              <Holder colour="#F4B400" number={9} title="Total Bookings" url="projects-under-audit" />
             </ul>
-            <ul className="flex mb-[0.2rem] gap-3 xl:gap-0">
-              <Holder img={Img7} title="Road Repair" url="road" />
-              <Holder img={Img8} title="Public Transport" url="transport" />
-              <Holder img={Img9} title="Street Lights" url="lights" />
+            <ul className="flex mb-[0.2rem] gap-3 xl:gap-10">
+              <Holder colour="#9747FF" number={9} title="Active Services" url="active-schemes" />
+              <Holder colour="#040287E5" number={9} title="Active Projects" url="projects-under-audit" />
             </ul>
-            <div className="flex gap-1 m-1 pb-3">
-              <div className="h-6 w-6 rounded-full bg-white border-2 border-blue-300"><img src={LeftArrow} alt="" /></div>
-              <div className="h-6 w-6 rounded-full bg-white border-2 border-blue-300"><img src={RightArrow} alt="" /></div>
-            </div>
           </div>
 
-          <div className="w-[30vw]">
-            <div className="border-l border-gray-300 m-8 mt-[-3rem]">
+          <div className="w-[40%] pt-1">
+            <div className="border-l border-gray-300">
               <ul className="flex flex-col justify-start">
-                <li className="bg-white m-4 h-[42vh] xl:w-[28vw] w-[23vw] rounded-2xl flex flex-col items-start px-3">
+                <li className="bg-white m-4 my-2 h-[42vh] xl:w-[28vw] w-[23vw] rounded-2xl flex flex-col items-start px-3">
                   <p className="font-semibold text-xl mt-2 mb-[-0.5rem] text-red-500">
                     Alerts
                   </p>
@@ -126,7 +59,7 @@ export default function Dashboard() {
                       {alerts.length > 0 ? (
                         alerts.slice().reverse().map((alert) => (
                           <li key={alert.id} className="m-1 w-full">
-                            {alert.Alert}
+                            {alert.alert}
                           </li>
                         ))
                       ) : (
@@ -137,14 +70,13 @@ export default function Dashboard() {
                     </ul>
                   </div>
                 </li>
-                <li className="bg-white m-4 h-[20vh] xl:w-[28vw] w-[23vw] rounded-2xl">
-                  <div className="flex justify-between items-center h-full scale-75 xl:scale-100 ml-[-1.5rem] xl:ml-0">
-                    <div className="text-5xl m-3">{temperature}°C</div>
-                    <ul className="flex flex-col gap-1 items-center m-4">
-                      <li className="text-sm font-semibold">{dayOfWeek}</li>
-                      <li className="text-sm font-semibold">{monthDay}</li>
-                      <li className="text-sm font-semibold">{time}</li>
-                    </ul>
+                <li className="relative bg-white m-4 h-[20vh] xl:w-[28vw] w-[23vw] rounded-2xl overflow-hidden">
+                  <div className="absolute top-11 left-28 z-[1000] bg-white bg-opacity-80 px-2 py-1 rounded text-sm font-semibold shadow-md">
+                    Live Monitoring
+                  </div>
+
+                  <div className="flex justify-between items-center h-full xl:scale-100 ml-[-1.5rem] xl:ml-0 pb-4">
+                    <MapContainer />
                   </div>
                 </li>
               </ul>

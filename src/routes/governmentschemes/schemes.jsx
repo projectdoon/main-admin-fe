@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Dropdown from '../../components/Dropdown';
 import SchemeHolder from '../../components/schemeHolder';
 import axios from 'axios'; // Make sure to import axios
 import { useNavigate } from 'react-router-dom';
@@ -77,7 +76,10 @@ export default function Schemes() {
     second: 'numeric',
   };
   const formattedDate = new Intl.DateTimeFormat('en-IN', dateTimeOptions).format(date);
-  const [dayOfWeek, monthDay, time] = formattedDate.split(', ');
+  const [datePart, time] = formattedDate.split(" at ");
+  const [dayOfWeek, ...rest] = datePart.split(" ");
+  const monthDay = rest.join(" ").replace(",", "");
+
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -105,81 +107,76 @@ export default function Schemes() {
 
   return (
     <>
-      <div>
-        {/* decreased mr from 25rem and changes justify-between */}
-        <div className='flex justify-start items-center mr-[14rem] xl:mr-[10rem] ml-5 gap-1 mt-2'>
-          <div className='mx-3'>
-            <img src={Left} alt="" onClick={handleLeftClick} style={{ cursor: 'pointer' }} />
-          </div>
-          {/* Included Dropdown inside a div */}
-          <div className='mr-36'>
-            <Dropdown />
-          </div>
-          <Button onClick={handleClick}>
-            Add Scheme
-          </Button>
-          <div className='mx-1'>
-            <img src={Right} alt="" onClick={handleRightClick} style={{ cursor: 'pointer' }} />
-          </div>
-        </div>
-
-        <div className='flex'>
-          {/* scaled down the div to 95 */}
-          <div className='flex flex-col my-[-1.2vh] min-w-[40vw] pt-2 mb-2 scale-95'>
-            {Array.isArray(displayedSchemes) && displayedSchemes.length > 0 ? (
-              <>
-                {displayedSchemes.slice().reverse().slice(0, 9).reduce((acc, scheme, index) => {
-                  if (index % 3 === 0) {
-                    acc.push([]);
-                  }
-                  acc[acc.length - 1].push(scheme);
-                  return acc;
-                }, []).map((schemeGroup, groupIndex) => (
-                  <ul key={groupIndex} className='flex mx-[-1.5rem]'>
-                    {schemeGroup.map(scheme => (
-                      <SchemeHolder key={scheme.id} title={scheme.name} url={scheme.url} />
-                    ))}
-                  </ul>
-                ))}
-              </>
-            ) : (
-              <ul className='flex'>
-                <p className='text-2xl font-semibold m-6'>ADD MORE SCHEMES</p>
-              </ul>
-            )}
+      <div>        
+        <div className='flex justify-between items-start'>
+          <div className='flex flex-col justify-start items-center min-w-[40vw] mb-2 w-[60%]'>
+            <div className='py-5'>
+              <Button onClick={handleClick}>
+                Add New Scheme
+              </Button>
+            </div>
+            <div className='pt-2'>
+              {Array.isArray(displayedSchemes) && displayedSchemes.length > 0 ? (
+                <>
+                  {displayedSchemes.slice().reverse().slice(0, 9).reduce((acc, scheme, index) => {
+                    if (index % 3 === 0) {
+                      acc.push([]);
+                    }
+                    acc[acc.length - 1].push(scheme);
+                    return acc;
+                  }, []).map((schemeGroup, groupIndex) => (
+                    <ul key={groupIndex} className='flex mx-[-2.5rem]'>
+                      {schemeGroup.map(scheme => (
+                        <SchemeHolder key={scheme.id} title={scheme.name} url={scheme.url} />
+                      ))}
+                    </ul>
+                  ))}
+                </>
+              ) : (
+                <ul className='flex'>
+                  <p className='text-2xl font-semibold m-6'>ADD MORE SCHEMES</p>
+                </ul>
+              )}
+            </div>
+            <div className='flex gap-2 pt-3'>
+              <button className='h-6 w-6 rounded-full bg-white border-2 border-blue-300'><img src={Left} alt="" /></button>
+              <button className='h-6 w-6 rounded-full bg-white border-2 border-blue-300'><img src={Right} alt="" /></button>
+            </div>
           </div>
 
-          <div className='w-[30vw]'>
-            <div className='border-l border-gray-300 m-8 mt-[-1.6rem]'>
+          <div className="w-[40%] pt-1">
+            <div className="border-l border-gray-300">
               <ul className="flex flex-col justify-start">
-                {/* fixed the margins */}
-                <li className='bg-white m-4 mt-0 h-[38vh] w-[24vw] rounded-xl flex flex-col items-center'>
-                  <p className='font-semibold text-xl mt-1.5 text-red-500'>Alerts</p>
-                  <div className='m-2.5 border-t-[1.5px] border-slate-200'>
-                    {error && <p className='text-red-500'>{error}</p>}
-                    <ul className='flex flex-col overflow-y-auto max-h-[28vh] overflow-x-hidden w-[23vw]' style={{ 
+                <li className="bg-white m-4 h-[42vh] xl:w-[28vw] w-[23vw] rounded-2xl flex flex-col items-start px-3">
+                  <p className="font-semibold text-xl mt-2 mb-[-0.5rem] text-red-500">
+                    Alerts
+                  </p>
+                  <div className="m-4 ml-0 border-t-[1.5px] w-full border-slate-200">
+                    {error && <p className="text-red-500">{error}</p>}
+                    <ul className="flex flex-col mt-1 overflow-y-auto max-h-[32vh] overflow-x-hidden max-w-[27vw]" style={{ 
                       scrollbarWidth: 'none'  
                     }}>
                       {alerts.length > 0 ? (
-                        alerts.map((alert) => (
-                          <li key={alert.id} className='m-1'>
-                            {alert.Alert}
+                        alerts.slice().reverse().map((alert) => (
+                          <li key={alert.id} className="m-1 w-full">
+                            {alert.alert}
                           </li>
                         ))
                       ) : (
-                        <li className='m-2 p-2 rounded-lg bg-gray-200'>No alerts available</li>
+                        <li className="m-2 p-2 rounded-lg bg-gray-200">
+                          No alerts available
+                        </li>
                       )}
                     </ul>
                   </div>
                 </li>
-                <li className='bg-white m-4 h-[20vh] w-[24vw] rounded-xl'>
-                  <div className='flex flex-row justify-between'>
-                    <div className='text-6xl m-4'>{temperature}°</div>
-                    {/* fixed items-center and margin */}
-                    <ul className='flex flex-col items-start m-1'>
-                      <li className='m-2 font-medium'>{dayOfWeek}</li>
-                      <li className='m-2 font-medium'>{monthDay}</li>
-                      <li className='m-2 font-medium'>{time}</li>
+                <li className="bg-white m-4 h-[20vh] xl:w-[28vw] w-[23vw] rounded-2xl">
+                  <div className="flex justify-between items-center h-full xl:scale-100 ml-[-1.5rem] xl:ml-0">
+                    <div className="text-4xl m-3 text-center w-full">{temperature}°C</div>
+                    <ul className="flex flex-col gap-2 justify-center items-start m-4 w-full">
+                      <li className="text-sm font-semibold uppercase">{dayOfWeek}</li>
+                      <li className="text-sm font-semibold">{monthDay}</li>
+                      <li className="text-sm font-semibold">{time}</li>
                     </ul>
                   </div>
                 </li>
