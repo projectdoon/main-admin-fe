@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Login from "./routes/Login/login.component";
 import Navigation from "./routes/Navigation/Navigation.component";
 import Dashboard from "./routes/DashBoard/dashboard.component";
+import SocialAudit from "./routes/SocialAudit/socialAudit.components";
 import Reports from "./routes/Report/report.component";
 import Alerts from "./routes/Alerts/Alerts.components";
 import Livetracking from "./routes/Garbage/LiveTracking";
@@ -52,7 +53,8 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="reports" element={<Reports />} />
             <Route path="alerts" element={<Alerts />} />
-            
+            <Route path="socialaudit" element={<SocialAudit />} />
+
             <Route
               path="dashboard/garbage"
               element={
@@ -61,7 +63,7 @@ function App() {
                 </RoleGuard>
               }
             />
-            
+
             <Route
               path="dashboard/garbage/household"
               element={
@@ -70,7 +72,7 @@ function App() {
                 </RoleGuard>
               }
             />
-            
+
             <Route
               path="dashboard/garbage/allReports"
               element={
@@ -79,7 +81,7 @@ function App() {
                 </RoleGuard>
               }
             />
-            
+
             <Route
               path="dashboard/water"
               element={
@@ -88,8 +90,7 @@ function App() {
                 </RoleGuard>
               }
             />
-            
-            
+
             <Route
               path="dashboard/deadanimal"
               element={
@@ -106,11 +107,11 @@ function App() {
                 </RoleGuard>
               }
             />
-             <Route
+            <Route
               path="dashboard/toilets"
               element={
                 <RoleGuard allowedRoles={["admin", "toilet"]}>
-                  <PublicToilet/>
+                  <PublicToilet />
                 </RoleGuard>
               }
             />
@@ -118,7 +119,7 @@ function App() {
               path="dashboard/stagnant"
               element={
                 <RoleGuard allowedRoles={["admin", "stagnant"]}>
-                  <StagnentWater/>
+                  <StagnentWater />
                 </RoleGuard>
               }
             />
@@ -126,7 +127,7 @@ function App() {
               path="dashboard/transport"
               element={
                 <RoleGuard allowedRoles={["admin", "transport"]}>
-                  <PublicTransport/>
+                  <PublicTransport />
                 </RoleGuard>
               }
             />
@@ -134,27 +135,27 @@ function App() {
               path="dashboard/transport"
               element={
                 <RoleGuard allowedRoles={["admin", "transport"]}>
-                  <PublicTransport/>
+                  <PublicTransport />
                 </RoleGuard>
               }
             />
-             <Route
+            <Route
               path="dashboard/road"
               element={
                 <RoleGuard allowedRoles={["admin", "road"]}>
-                  <RoadRepairs/>
+                  <RoadRepairs />
                 </RoleGuard>
               }
             />
-            
+
             <Route path="dashboard/govscheme" element={<Schemes />} />
             <Route path="dashboard/govservice" element={<Services />} />
-            
+
             <Route
               path="dashboard/govscheme/addscheme"
               element={<Addschemes />}
             />
-            
+
             <Route path="staffreport" element={<StaffReport />} />
             <Route path="attendance" element={<Attendance />} />
             <Route path="allvehicle" element={<AllVehicle />} />
