@@ -1,10 +1,9 @@
-// AddProjectForm.jsx
 import React, { useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { FileUploadIcon } from "@hugeicons/core-free-icons";
 
 const AddProjectForm = ({ onClose }) => {
-  const [members, setMembers] = useState(["Member 1", "Member 2"]); //INITIALLY TWO MEMBERS DEFAULT
+  const [members, setMembers] = useState(["Member 1", "Member 2"]);
   const handleAddMember = () => {
     const newMemberNumber = members.length + 1;
     setMembers([...members, `Member ${newMemberNumber}`]);
@@ -22,7 +21,6 @@ const AddProjectForm = ({ onClose }) => {
         <h2 className="text-2xl font-bold mb-[29px]">Add Project</h2>
 
         <form className="space-y-6">
-          {/* Project Name & Department */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex flex-col">
               <label className="text-sm font-medium text-gray-700 mb-1">
@@ -46,7 +44,6 @@ const AddProjectForm = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Description */}
           <div className="flex flex-col mt-4">
             <label className="text-sm font-medium text-gray-700 mb-1">
               Product Description
@@ -57,7 +54,6 @@ const AddProjectForm = ({ onClose }) => {
             />
           </div>
 
-          {/* Dates */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex flex-col">
               <label className="text-sm font-medium text-gray-700 mb-1">
@@ -88,7 +84,6 @@ const AddProjectForm = ({ onClose }) => {
             </button>
           </div>
 
-          {/* Location */}
           <div className="mt-6">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Location of Project
@@ -119,7 +114,6 @@ const AddProjectForm = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Documents & Authority */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
@@ -151,7 +145,6 @@ const AddProjectForm = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Organisation */}
           <div className="flex flex-col mt-4">
             <label className="text-sm font-medium text-gray-700 mb-1">
               Organisation
@@ -163,7 +156,6 @@ const AddProjectForm = ({ onClose }) => {
             />
           </div>
 
-          {/* Team */}
           <div className="mt-4">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Members
@@ -189,7 +181,6 @@ const AddProjectForm = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Status & Uploader */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-[78px]">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -214,7 +205,6 @@ const AddProjectForm = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Submit */}
           <div className="flex justify-center pt-2 mb-[78px]">
             <button
               type="submit"

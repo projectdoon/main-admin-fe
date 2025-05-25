@@ -2,7 +2,7 @@ import React from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { FileUploadIcon, FileDownloadIcon } from "@hugeicons/core-free-icons";
 
-const ProjectDetailView = ({ project, onClose }) => {
+const ProjectDetailView = ({ project, onClose, onEdit }) => {
   if (!project) return null;
 
   return (
@@ -26,7 +26,10 @@ const ProjectDetailView = ({ project, onClose }) => {
           <HugeiconsIcon icon={FileDownloadIcon} />
           Download Report
         </button>
-        <button className="px-4 py-2 border border-red-500 text-red-600 rounded-lg hover:bg-red-50">
+        <button
+          onClick={onEdit}
+          className="px-4 py-2 border border-red-500 text-red-600 rounded-lg hover:bg-red-50"
+        >
           Edit
         </button>
       </div>

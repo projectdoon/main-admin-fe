@@ -3,6 +3,7 @@ import ProjectCard from "../../components/SocialAudit/ProjectCard";
 import ProjectDetailView from "../../components/SocialAudit/ProjectDetailView";
 import FilterModal from "../../components/SocialAudit/FilterModal";
 import AddProjectForm from "../../components/SocialAudit/AddProjectForm";
+import EditProjectForm from "../../components/SocialAudit/EditProjectForm";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { FilterHorizontalIcon } from "@hugeicons/core-free-icons";
 import AddRound from "../../assets/Add_round.png";
@@ -12,6 +13,7 @@ const SocialAudit = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const projects = [
     {
@@ -156,13 +158,23 @@ const SocialAudit = () => {
         <img src={AddRound} alt="Add" className="w-6 h-6" />
       </button>
 
-      {selectedProject && (
+      {selectedProject && !isEditing && (
         <ProjectDetailView
           project={selectedProject}
           onClose={() => setSelectedProject(null)}
+          onEdit={() => setIsEditing(true)}
         />
       )}
       {showAddForm && <AddProjectForm onClose={() => setShowAddForm(false)} />}
+      {selectedProject && isEditing && (
+        <EditProjectForm
+          project={selectedProject}
+          onClose={() => {
+            setSelectedProject(null);
+            setIsEditing(false);
+          }}
+        />
+      )}
 
       <FilterModal
         isOpen={showFilterModal}
