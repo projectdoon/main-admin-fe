@@ -1,13 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function NavDropDown({ title, subLinks, isOpen, onToggle }) {
+function NavDropDown({ title, subLinks, Logo, isOpen, onToggle }) {
   return (
     <li className="w-full">
       <div
         onClick={onToggle}
-        className="cursor-pointer text-sm font-normal"
+        className="cursor-pointer text-sm font-normal flex gap-2 items-center"
       >
+        <Logo className='h-6 w-5 text-black' />
         {title}
       </div>
 
@@ -16,9 +17,9 @@ function NavDropDown({ title, subLinks, isOpen, onToggle }) {
           isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <ul className="flex flex-col mt-2">
+        <ul className="flex flex-col mt-1">
           {subLinks.map((item, idx) => (
-            <li key={idx} className="border-l-2 border-gray-400 py-0.5 pl-2">
+            <li key={idx} className="py-0.5 pl-3">
               <NavLink
                 to={item.url}
                 className={({ isActive }) =>

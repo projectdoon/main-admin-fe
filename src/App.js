@@ -29,6 +29,8 @@ import RoadRepairs from "./routes/roadRepair/roadRepairs";
 import Complaints from "./routes/Complaints/complaints.component";
 import StreetLights from "./routes/StreetLights/StreetLights";
 import Banners from "./routes/Banners/Banners";
+import Helpline from "./routes/HelplineNumbers/Helpline";
+import UpdateInfo from "./routes/UpdateInfo/UpdateInfo";
 
 const GOOGLE_MAPS_API_KEY = "AIzaSyAU4SEzLK-hc2pBfE_xggoyAigxopPQ7mw";
 
@@ -52,8 +54,10 @@ function App() {
               </AuthGuard>
             }
           >
-            <Route path="dashboard" element={<Dashboard />} />    
+            <Route path="dashboard/home" element={<Dashboard />} />    
             <Route path="dashboard/banners" element={<Banners />} />    
+            <Route path="dashboard/helpline" element={<Helpline />} />    
+            <Route path="dashboard/updateInfo" element={<UpdateInfo />} />    
 
             <Route path="reports" element={<Reports />} />
             <Route path="alerts" element={<Alerts />} />

@@ -3,14 +3,17 @@ import Header from "../../components/header";
 import NavComponent from "../../components/NavComponent";
 import NavDropDown from "../../components/NavDropDown";
 import { useState } from "react";
+import { DashboardSquare02Icon, File01Icon, Notification03Icon, ContainerTruck02Icon, Audit01Icon, Files02Icon } from "hugeicons-react";
+
 
 export default function Navigation() {
   const [openDropdown, setOpenDropdown] = useState(null);
 
   const dashboardLinks = [
+    { title: "Home", url: "dashboard/home" },
     { title: "Banners", url: "dashboard/banners" },
     { title: "Helpline Numbers", url: "dashboard/helpline" },
-    { title: "Update Info", url: "dashboard/update" },
+    { title: "Update Info", url: "dashboard/updateInfo" },
     { title: "Staff & Role", url: "dashboard/staff&role" },
   ];
 
@@ -41,10 +44,11 @@ export default function Navigation() {
       <Header />
       <div className="flex">
         <nav className="mr-4 ml-4 h-[75vh] w-[15vw] flex-shrink-0 flex">
-          <ul className="flex flex-col justify-start mt-3 gap-6 w-full items-start pl-5">
+          <ul className="flex flex-col justify-start mt-3 gap-6 w-full items-start pl-3">
             <NavDropDown
               title="Dashboard"
               subLinks={dashboardLinks}
+              Logo={DashboardSquare02Icon}
               isOpen={openDropdown === "dashboard"}
               onToggle={() =>
                 setOpenDropdown(openDropdown === "dashboard" ? null : "dashboard")
@@ -52,17 +56,19 @@ export default function Navigation() {
             />
 
             <NavComponent
-              className="text-sm"
+              className="text-sm flex gap-2 items-center"
               url="complaints"
               styling="font-normal"
               activeStyling="font-bold"
-            >
+            > 
+              <File01Icon className="h-6 w-5" />
               Complaints
             </NavComponent>
 
             <NavDropDown
               title="Alerts"
               subLinks={alertsLinks}
+              Logo={Notification03Icon}
               isOpen={openDropdown === "alerts"}
               onToggle={() =>
                 setOpenDropdown(openDropdown === "alerts" ? null : "alerts")
@@ -70,26 +76,29 @@ export default function Navigation() {
             />
 
             <NavComponent
-              className="text-sm"
+              className="text-sm flex gap-2 items-center"
               url="garbage"
               styling="font-normal"
               activeStyling="font-bold"
             >
+              <ContainerTruck02Icon className="h-6 w-5" />
               Garbage Monitoring
             </NavComponent>
 
             <NavComponent
-              className="text-sm"
+              className="text-sm flex gap-2 items-center"
               url="socialAudit"
               styling="font-normal"
               activeStyling="font-bold"
             >
+              <Audit01Icon className="h-6 w-5" />
               Social Audit
             </NavComponent>
 
             <NavDropDown
               title="Schemes & Services"
               subLinks={schemesNservicesLinks}
+              Logo={Files02Icon}
               isOpen={openDropdown === "schemes"}
               onToggle={() =>
                 setOpenDropdown(openDropdown === "schemes" ? null : "schemes")
@@ -99,6 +108,7 @@ export default function Navigation() {
             <NavDropDown
               title="Public Bookings"
               subLinks={publicBookingsLinks}
+              Logo={DashboardSquare02Icon}
               isOpen={openDropdown === "bookings"}
               onToggle={() =>
                 setOpenDropdown(openDropdown === "bookings" ? null : "bookings")
@@ -108,6 +118,7 @@ export default function Navigation() {
             <NavDropDown
               title="Tax & Utility"
               subLinks={taxNutilityLinks}
+              Logo={DashboardSquare02Icon}
               isOpen={openDropdown === "tax"}
               onToggle={() =>
                 setOpenDropdown(openDropdown === "tax" ? null : "tax")

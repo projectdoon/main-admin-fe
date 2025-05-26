@@ -3,7 +3,7 @@ import { FileUploadIcon } from "hugeicons-react";
 
 function Banners() {
   return (
-    <div className='flex flex-col w-full h-full gap-3 pt-2'>
+    <div className='flex flex-col w-full h-full gap-1 -mt-0.5 2xl:mt-2'>
       <div className='flex flex-col gap-3 justify-center items-center w-full h-3/5'>
         <label htmlFor="upload" className="flex flex-col justify-center items-center w-1/3 h-48 bg-white rounded-2xl border-2 border-dashed border-[#3A81F1] cursor-pointer">
             <FileUploadIcon className='h-6 w-16 text-black' />

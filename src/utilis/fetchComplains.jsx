@@ -9,7 +9,7 @@ const fetchComplaints = async (category) => {
     // Fetch the complaints from the API
     const response = await axios.get(url);
     const complaints = response.data;
-
+    
     // Map and filter the complaints data to match the markers format
     const markers = complaints
       .filter(complaint => complaint.Burst !== 1) // Exclude complaints marked as solved
