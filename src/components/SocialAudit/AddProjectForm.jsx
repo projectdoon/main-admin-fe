@@ -147,7 +147,7 @@ const AddProjectForm = ({ onClose }) => {
 
           <div className="flex flex-col mt-4">
             <label className="text-sm font-medium text-gray-700 mb-1">
-              Organisation
+              Audit Organisation
             </label>
             <input
               type="text"
@@ -158,7 +158,7 @@ const AddProjectForm = ({ onClose }) => {
 
           <div className="mt-4">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Members
+              Team Members
             </label>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {members.map((placeholder, index) => (
@@ -202,6 +202,83 @@ const AddProjectForm = ({ onClose }) => {
                 placeholder="Uploader name"
                 className="border border-gray-300 rounded-lg px-4 py-2 w-full"
               />
+            </div>
+          </div>
+          <div className="mt-[41px]">
+            <div className="flex items-center justify-center gap-4 my-10">
+              <hr className="flex-grow border-t border-gray-300" />
+              <h3 className="text-[#414651] text-lg font-medium whitespace-nowrap">
+                Project Manager
+              </h3>
+              <hr className="flex-grow border-t border-gray-300" />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">
+                  Manager Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Project name"
+                  className="border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">
+                  Company/Organisation Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Company name"
+                  className="border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">
+                  Login Email
+                </label>
+                <input
+                  type="email"
+                  placeholder=""
+                  className="border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">
+                  Login PIN
+                </label>
+                <input
+                  type="password"
+                  placeholder="PIN"
+                  className="border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">
+                  PM Email
+                </label>
+                <input
+                  type="email"
+                  placeholder=""
+                  className="border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">
+                  PM Number
+                </label>
+                <input
+                  type="text"
+                  placeholder="Contact Number"
+                  className="border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400"
+                />
+              </div>
             </div>
           </div>
 
