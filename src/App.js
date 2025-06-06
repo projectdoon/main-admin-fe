@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Login from "./routes/Login/login.component";
 import Navigation from "./routes/Navigation/Navigation.component";
 import Dashboard from "./routes/DashBoard/dashboard.component";
+import SocialAudit from "./routes/SocialAudit/socialAudit.components";
 import Reports from "./routes/Report/report.component";
 import Alerts from "./routes/Alerts/Alerts.components";
 import Livetracking from "./routes/Garbage/LiveTracking";
@@ -62,7 +63,8 @@ function App() {
             <Route path="reports" element={<Reports />} />
             <Route path="alerts" element={<Alerts />} />
             <Route path="complaints" element={<Complaints />} />
-            
+            <Route path="socialaudit" element={<SocialAudit />} />
+
             <Route
               path="garbage"
               element={
@@ -71,7 +73,7 @@ function App() {
                 </RoleGuard>
               }
             />
-            
+
             <Route
               path="garbage/household"
               element={
@@ -80,7 +82,7 @@ function App() {
                 </RoleGuard>
               }
             />
-            
+
             <Route
               path="garbage/allReports"
               element={
@@ -89,7 +91,7 @@ function App() {
                 </RoleGuard>
               }
             />
-            
+
             <Route
               path="complaints/water"
               element={
@@ -98,8 +100,7 @@ function App() {
                 </RoleGuard>
               }
             />
-            
-            
+
             <Route
               path="complaints/deadanimal"
               element={
@@ -108,6 +109,7 @@ function App() {
                 </RoleGuard>
               }
             />
+
             <Route
               path="complaints/manholes"
               element={
@@ -116,30 +118,34 @@ function App() {
                 </RoleGuard>
               }
             />
-             <Route
+
+            <Route
               path="complaints/toilets"
               element={
                 <RoleGuard allowedRoles={["admin", "toilet"]}>
-                  <PublicToilet/>
+                  <PublicToilet />
                 </RoleGuard>
               }
             />
+
             <Route
               path="complaints/stagnant"
               element={
                 <RoleGuard allowedRoles={["admin", "stagnant"]}>
-                  <StagnentWater/>
+                  <StagnentWater />
                 </RoleGuard>
               }
             />
+
             <Route
               path="complaints/transport"
               element={
                 <RoleGuard allowedRoles={["admin", "transport"]}>
-                  <PublicTransport/>
+                  <PublicTransport />
                 </RoleGuard>
               }
             />
+
             <Route
               path="complaints/lights"
               element={
@@ -148,11 +154,12 @@ function App() {
                 </RoleGuard>
               }
             />
-             <Route
+
+            <Route
               path="complaints/road"
               element={
                 <RoleGuard allowedRoles={["admin", "road"]}>
-                  <RoadRepairs/>
+                  <RoadRepairs />
                 </RoleGuard>
               }
             />
@@ -164,7 +171,7 @@ function App() {
               path="dashboard/gov/scheme/addscheme"
               element={<Addschemes />}
             />
-            
+
             <Route path="staffreport" element={<StaffReport />} />
             <Route path="attendance" element={<Attendance />} />
             <Route path="allvehicle" element={<AllVehicle />} />
