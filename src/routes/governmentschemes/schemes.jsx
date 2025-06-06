@@ -1,34 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import Dropdown from '../../components/Dropdown';
 import SchemeHolder from '../../components/schemeHolder';
 import axios from 'axios'; // Make sure to import axios
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Right from '../../assets/Expand_left_light.png';
 import Left from '../../assets/Expand_left_light-2.png';
+import MapContainer from '../../components/maps';
 
 export default function Schemes() {
-  const [date, setDate] = useState(new Date());
-  const [temperature, setTemperature] = useState('N/A'); // Default to 'N/A'
   const [alerts, setAlerts] = useState([]); // State for alerts
   const [error, setError] = useState(''); // State for error messages
   const [schemes, setSchemes] = useState([]); // State for schemes
   const [forward, setForward] = useState(0); // State for pagination
 
   useEffect(() => {
-    const updateDate = () => {
-      setDate(new Date());
-    };
-
-    const fetchTemperature = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/temperature'); // Updated URL
-        const data = await response.json();
-        setTemperature(data.temperature); // Adjust according to your API response
-      } catch (error) {
-        console.error('Error fetching temperature:', error);
-      }
-    };
 
     const fetchAlerts = async () => {
       try {
@@ -50,34 +35,10 @@ export default function Schemes() {
       }
     };
 
-    updateDate(); // Update date on component mount
-    fetchTemperature(); // Fetch initial temperature
     fetchAlerts(); // Fetch initial alerts
     fetchSchemes(); // Fetch initial schemes
-
-    // Update date every minute
-    const dateInterval = setInterval(updateDate, 60000);
-    const tempInterval = setInterval(fetchTemperature, 3600000);
-
-    return () => {
-      clearInterval(dateInterval);
-      clearInterval(tempInterval);
-    };
   }, []);
 
-  // Format date and time for the Indian time zone
-  const dateTimeOptions = {
-    timeZone: 'Asia/Kolkata',
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-  };
-  const formattedDate = new Intl.DateTimeFormat('en-IN', dateTimeOptions).format(date);
-  const [dayOfWeek, monthDay, time] = formattedDate.split(', ');
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -105,86 +66,79 @@ export default function Schemes() {
 
   return (
     <>
-      <div>
-        {/* decreased mr from 25rem and changes justify-between */}
-        <div className='flex justify-start items-center mr-[14rem] xl:mr-[10rem] ml-5 gap-1 mt-2'>
-          <div className='mx-3'>
-            <img src={Left} alt="" onClick={handleLeftClick} style={{ cursor: 'pointer' }} />
-          </div>
-          {/* Included Dropdown inside a div */}
-          <div className='mr-36'>
-            <Dropdown />
-          </div>
-          <Button onClick={handleClick}>
-            Add Scheme
-          </Button>
-          <div className='mx-1'>
-            <img src={Right} alt="" onClick={handleRightClick} style={{ cursor: 'pointer' }} />
-          </div>
-        </div>
-
-        <div className='flex'>
-          {/* scaled down the div to 95 */}
-          <div className='flex flex-col my-[-1.2vh] min-w-[40vw] pt-2 mb-2 scale-95'>
-            {Array.isArray(displayedSchemes) && displayedSchemes.length > 0 ? (
-              <>
-                {displayedSchemes.slice().reverse().slice(0, 9).reduce((acc, scheme, index) => {
-                  if (index % 3 === 0) {
-                    acc.push([]);
-                  }
-                  acc[acc.length - 1].push(scheme);
-                  return acc;
-                }, []).map((schemeGroup, groupIndex) => (
-                  <ul key={groupIndex} className='flex mx-[-1.5rem]'>
-                    {schemeGroup.map(scheme => (
-                      <SchemeHolder key={scheme.id} title={scheme.name} url={scheme.url} />
-                    ))}
-                  </ul>
-                ))}
-              </>
-            ) : (
-              <ul className='flex'>
-                <p className='text-2xl font-semibold m-6'>ADD MORE SCHEMES</p>
-              </ul>
-            )}
+      <div className="w-[100%] h-full">
+        <div className="flex justify-between items-center w-full h-full">
+          <div className='flex flex-col justify-center items-center mb-2 w-[60%] h-full pl-2 -mt-3'>
+            <div className='py-5'>
+              <Button onClick={handleClick}>
+                Add New Scheme
+              </Button>
+            </div>
+            <div className='pt-2'>
+              {Array.isArray(displayedSchemes) && displayedSchemes.length > 0 ? (
+                <>
+                  {displayedSchemes.slice().reverse().slice(0, 9).reduce((acc, scheme, index) => {
+                    if (index % 3 === 0) {
+                      acc.push([]);
+                    }
+                    acc[acc.length - 1].push(scheme);
+                    return acc;
+                  }, []).map((schemeGroup, groupIndex) => (
+                    <ul key={groupIndex} className='flex mx-[-2rem] -my-1'>
+                      {schemeGroup.map(scheme => (
+                        <SchemeHolder key={scheme.id} title={scheme.name} url={scheme.url} />
+                      ))}
+                    </ul>
+                  ))}
+                </>
+              ) : (
+                <ul className='flex'>
+                  <p className='text-2xl font-semibold m-6'>ADD MORE SCHEMES</p>
+                </ul>
+              )}
+            </div>
+            <div className='flex gap-2'>
+              <button className='h-6 w-6 rounded-full bg-white border-2 border-blue-300'><img src={Left} alt="" /></button>
+              <button className='h-6 w-6 rounded-full bg-white border-2 border-blue-300'><img src={Right} alt="" /></button>
+            </div>
           </div>
 
-          <div className='w-[30vw]'>
-            <div className='border-l border-gray-300 m-8 mt-[-1.6rem]'>
-              <ul className="flex flex-col justify-start">
-                {/* fixed the margins */}
-                <li className='bg-white m-4 mt-0 h-[38vh] w-[24vw] rounded-xl flex flex-col items-center'>
-                  <p className='font-semibold text-xl mt-1.5 text-red-500'>Alerts</p>
-                  <div className='m-2.5 border-t-[1.5px] border-slate-200'>
-                    {error && <p className='text-red-500'>{error}</p>}
-                    <ul className='flex flex-col overflow-y-auto max-h-[28vh] overflow-x-hidden w-[23vw]' style={{ 
+          <div className="w-[40%] h-full">
+              <ul className="flex flex-col justify-center items-start gap-7 h-full w-full">
+                <li className="bg-white h-[39vh] xl:w-[28vw] w-[23vw] rounded-2xl flex flex-col items-start px-4 py-0.5">
+                  <p className="font-semibold text-xl my-1.5 text-red-500 flex w-full justify-between items-center">
+                    <div>Active Alerts</div>
+                    <div className="text-xs text-black font-normal scale-90">View All</div>
+                  </p>
+                  <div className="border-t-[1.5px] w-full border-slate-200">
+                    {error && <p className="text-red-500">{error}</p>}
+                    <ul className="flex flex-col mt-1 overflow-y-auto max-h-[32vh] overflow-x-hidden max-w-[27vw]" style={{ 
                       scrollbarWidth: 'none'  
                     }}>
                       {alerts.length > 0 ? (
-                        alerts.map((alert) => (
-                          <li key={alert.id} className='m-1'>
-                            {alert.Alert}
+                        alerts.slice().reverse().map((alert) => (
+                          <li key={alert.id} className="my-1 w-full text-xs">
+                            {alert.alert}
                           </li>
                         ))
                       ) : (
-                        <li className='m-2 p-2 rounded-lg bg-gray-200'>No alerts available</li>
+                        <li className="m-2 p-2 rounded-lg bg-gray-200">
+                          No alerts available
+                        </li>
                       )}
                     </ul>
                   </div>
                 </li>
-                <li className='bg-white m-4 h-[20vh] w-[24vw] rounded-xl'>
-                  <div className='flex flex-row justify-between'>
-                    <div className='text-6xl m-4'>{temperature}°</div>
-                    {/* fixed items-center and margin */}
-                    <ul className='flex flex-col items-start m-1'>
-                      <li className='m-2 font-medium'>{dayOfWeek}</li>
-                      <li className='m-2 font-medium'>{monthDay}</li>
-                      <li className='m-2 font-medium'>{time}</li>
-                    </ul>
+                <li className="relative bg-white h-[17.5vh] xl:w-[28vw] w-[23vw] rounded-2xl overflow-hidden">
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1000] bg-white bg-opacity-80 px-2 py-1 rounded text-sm font-semibold shadow-md">
+                    Live Monitoring
+                  </div>
+
+                  <div className="flex justify-between items-center h-full xl:scale-100 pb-4">
+                    <MapContainer />
                   </div>
                 </li>
               </ul>
-            </div>
           </div>
         </div>
       </div>

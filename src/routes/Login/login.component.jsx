@@ -45,7 +45,7 @@ export default function Login({ onLogin }) {
   }
 
   if (loggedIn) {
-    return <Navigate to="/admin/dashboard" />;
+    return <Navigate to="/admin/dashboard/home" />;
   }
 
   return (

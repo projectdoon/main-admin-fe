@@ -5,7 +5,7 @@ export default function LiveReports() {
   return (
       <>
           <LiveHeader />
-          <div>
+          <div className='w-full text-center'>
               reports here
           </div>
       </>

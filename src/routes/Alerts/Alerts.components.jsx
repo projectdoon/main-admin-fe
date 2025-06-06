@@ -52,7 +52,7 @@ function Alerts() {
   return (
     <>
       <div className="relative flex flex-col px-12">
-        <div className="absolute right-3 top-28 xl:top-20  pt-2 flex mb-0 ml-[1000px] text-gray-500 scale-[85%]">
+        <div className="absolute right-5 top-32 xl:top-20  pt-2 flex mb-0 ml-[1000px] text-gray-500 scale-[85%]">
           <span className="text-black font-semibold whitespace-nowrap mr-1">
             Date:
           </span>{" "}
@@ -62,10 +62,10 @@ function Alerts() {
 
         <div className="m-4 mb-2 flex-auto self-center">
           <div className="mb-[-0.5rem]">
-            <label htmlFor="alert">New Alert:</label>
+            <label htmlFor="alert" className="text-xl">New Alert:</label>
             <input
               type="text"
-              className="rounded-full pl-3 w-[80%] font-semibold py-1 m-2 focus:outline-none"
+              className="rounded-full pl-3 w-[75%] font-semibold py-1.5 m-2 focus:outline-none"
               id="alert"
               value={newAlert}
               onChange={handleInputChange}
@@ -73,11 +73,11 @@ function Alerts() {
           </div>
 
           <div className="flex items-center justify-between">
-            <label htmlFor="category" className="mr-3.5">
+            <label htmlFor="category" className="mr-3.5 text-xl">
               Category:
             </label>
             <select
-              className="pr-28 pl-2 rounded-full py-[-1rem] h-[6vh]"
+              className="w-36 px-2 rounded-full py-1.5"
               id="category"
               value={category}
               onChange={handleCategoryChange}
@@ -87,7 +87,7 @@ function Alerts() {
               <option value="cat3">Cat 3</option>
             </select>
             <button
-              className="text-slate-200 bg-blue-600 px-16 py-[6px] shadow-lg text-md rounded-full transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none m-4"
+              className="text-slate-200 bg-blue-600 px-16 py-1.5 shadow-lg text-md rounded-full transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none m-4"
               onClick={handleFormSubmit}
             >
               Generate
@@ -108,13 +108,10 @@ function Alerts() {
                     key={index}
                     className="text-md font-md flex justify-between items-center w-full"
                   >
-                    <div className="flex">
-                      <img src={RedDot} alt="" className="mr-10 scale-90" />
-                      <span className="font-normal">{alert.Alert}</span> -{" "}
-                      <span className="font-bold">{alert.category}</span>{" "}
-                      {/* Display category */}
+                    <div className="flex items-center w-full">
+                      <img src={RedDot} alt="" className="mr-10 h-7 w-7" />
+                      <span className="font-normal text-base">{alert.alert}</span>
                     </div>
-                    {/* given margin right */}
                     <img src={RightArrow} className="h-7 w-7 mr-3" alt="" />
                   </li>
                 ))

@@ -14,17 +14,23 @@ function Header() {
     const [showDialog, setShowDialog] = useState(false);
     const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
-    const title = path.includes('admin/dashboard/govscheme')
-    ? 'Schemes'
-    : path.includes('admin/dashboard')
-        ? 'Dashboard'
-        : path.includes('report')
-            ? 'Report'
-            : path.includes('alert')
-                ? 'Alerts'
-                : path.includes('staff')
-                    ? 'Staff'
-                    : '';
+    const title = path.includes('admin/gov')
+                        ? 'Schemes & Services'
+                        : path.includes('admin/dashboard')
+                                ? 'Dashboard'
+                                : path.includes('admin/alert')
+                                        ? 'Alerts'
+                                        : path.includes('admin/garbage')
+                                            ? 'Garbage Monitoring'
+                                            : path.includes('admin/complaints')
+                                                ? 'Complaints'
+                                                : path.includes('admin/public')
+                                                    ? 'Public Bookings'
+                                                    : path.includes('admin/tax&utility')
+                                                        ? 'Tax & Utility'
+                                                        : path.includes('admin/socialAudit')
+                                                            ? 'Social Audit'
+                                                            : '';
 
     const handleLogout = () => {
         logout();
